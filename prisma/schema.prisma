@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+//************** DB Schema *****************
+
+
+model Farm {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime
+  latitude  Float
+  longitude Float
+}
+
+model Batch {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime
+}
+
+model Animal {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  code      String
+  birthDate DateTime
+  createdAt DateTime
+  batchID   String
+}
