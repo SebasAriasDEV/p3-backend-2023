@@ -20,7 +20,7 @@ model Farm {
   longitude Float
   batches   Batch[]
 
-   @@map("farms")
+  @@map("farms")
 }
 
 model Batch {
@@ -35,13 +35,57 @@ model Batch {
 }
 
 model Animal {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  code      String
-  birthDate DateTime
-  createdAt DateTime @default(now())
-  batchID   String   @db.ObjectId
-  batch     Batch    @relation(fields: [batchID], references: [id])
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  code           String
+  birthDate      DateTime
+  createdAt      DateTime        @default(now())
+  batchID        String          @db.ObjectId
+  batch          Batch           @relation(fields: [batchID], references: [id])
+  resourceEvents ResourceEvent[]
 
   @@map("animals")
 }
 
+model Resource {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  createdAt       DateTime        @default(now())
+  brand           String
+  availableAmount Float
+  resourceType    ResourceType
+  measureUnit     MeasureUnit
+  resourceEvents  ResourceEvent[]
+
+  @@map("resources")
+}
+
+model ResourceEvent {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime  @default(now())
+  eventType  EventType
+  comment    String
+  resourceID String    @db.ObjectId
+  resource   Resource  @relation(fields: [resourceID], references: [id])
+  animalID   String    @db.ObjectId
+  animal     Animal    @relation(fields: [animalID], references: [id])
+
+  @@map("resourceEvents")
+}
+
+enum ResourceType {
+  MEDICINE
+  FOOD
+}
+
+enum MeasureUnit {
+  KILOGRAMS
+  GRAMS
+  UNITS
+  LITERS
+  MILILITERS
+}
+
+enum EventType {
+  MEDICINE_EVENT
+  FOOD_EVENT
+}
