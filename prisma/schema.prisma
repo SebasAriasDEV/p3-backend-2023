@@ -19,6 +19,8 @@ model Farm {
   latitude  Float
   longitude Float
   batches   Batch[]
+
+   @@map("farms")
 }
 
 model Batch {
@@ -28,6 +30,8 @@ model Batch {
   farmID    String   @db.ObjectId
   farm      Farm     @relation(fields: [farmID], references: [id])
   animals   Animal[]
+
+  @@map("batches")
 }
 
 model Animal {
@@ -37,4 +41,7 @@ model Animal {
   createdAt DateTime @default(now())
   batchID   String   @db.ObjectId
   batch     Batch    @relation(fields: [batchID], references: [id])
+
+  @@map("animals")
 }
+
