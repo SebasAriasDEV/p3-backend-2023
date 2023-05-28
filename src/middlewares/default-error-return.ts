@@ -9,5 +9,6 @@ export const defaultErrorReturn: ErrorRequestHandler = (
   res.status(500).json({
     type: err.constructor.name,
     message: err.toString(),
+    meta: err.meta
   });
 };

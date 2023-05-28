@@ -3,16 +3,19 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import farmsRouter from '../routers/farms-router';
+import batchesRouter from '../routers/batches-router';
 import { defaultErrorReturn } from '../middlewares/default-error-return';
 
 export default class Server {
   app: Express;
   farmsPath: string;
+  batchesPath: string;
   animalsPath: string;
 
   constructor() {
     this.app = express();
     this.farmsPath = '/farms';
+    this.batchesPath = '/batches';
     this.animalsPath = '/animals';
 
     //Middlewares exec
@@ -22,7 +25,7 @@ export default class Server {
 
     //Default error handler
     this.errorHandler();
-    
+
     //Listen exec
     this.listen();
   }
@@ -37,6 +40,7 @@ export default class Server {
   //Routes
   routes() {
     this.app.use(this.farmsPath, farmsRouter);
+    this.app.use(this.batchesPath, batchesRouter);
   }
 
   //Error Handler

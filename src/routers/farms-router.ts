@@ -6,6 +6,7 @@ import {
   updateFarm,
 } from '../controllers/farms-controller';
 import { errorHandler } from '../helpers/error-handler';
+import batchesRouter from '../routers/batches-router';
 
 const router: Router = Router();
 

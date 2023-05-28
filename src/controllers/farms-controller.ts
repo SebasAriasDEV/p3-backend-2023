@@ -4,12 +4,9 @@ import { Farm } from '@prisma/client';
 
 //******* Create a new farm ****************
 const createFarm = async (req: Request, res: Response) => {
+  const { name, latitude = 111, longitude = 222 } = req.body;
   const newFarm: Farm = await prisma.farm.create({
-    data: {
-      name: 'Finca El Paraiso',
-      latitude: 111,
-      longitude: 222,
-    },
+    data: { name, latitude, longitude },
   });
 
   res.status(200).json({
