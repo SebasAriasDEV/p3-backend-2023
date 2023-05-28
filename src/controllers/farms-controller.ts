@@ -18,19 +18,43 @@ const createFarm = async (req: Request, res: Response) => {
   });
 };
 
-
 //******** Delete a farm by id */
 const deleteFarm = async (req: Request, res: Response) => {
   const { id } = req.params;
   const deletedFarm = await prisma.farm.delete({
     where: { id },
   });
-  
+
   res.status(200).json({
     status: true,
     deletedFarm,
   });
 };
 
+//******** Update a farm by id */
+const updateFarm = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { name, latitude, longitude } = req.body;
+  const updatedFarm = await prisma.farm.update({
+    where: { id },
+    data: { name, latitude, longitude },
+  });
+
+  res.status(200).json({
+    status: true,
+    updatedFarm,
+  });
+};
+
+//******** Read all farms */
+const getAllFarms = async (req: Request, res: Response) => {
+  const farms = await prisma.farm.findMany({});
+
+  res.status(200).json({
+    status: true,
+    farms,
+  });
+};
+
 //Exports
-export { createFarm, deleteFarm };
+export { createFarm, deleteFarm, updateFarm, getAllFarms };
