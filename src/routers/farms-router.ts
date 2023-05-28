@@ -1,10 +1,13 @@
 import { Router } from 'express';
-import { createFarm } from '../controllers/farms-controller';
-import { errorHandler } from '../helpers/try-catch-helper';
+import { createFarm, deleteFarm } from '../controllers/farms-controller';
+import { errorHandler } from '../helpers/error-handler';
 
 const router: Router = Router();
 
-//Get all animals
+//********** Create farm **************
 router.post('/', errorHandler(createFarm));
+
+//********** Create farm **************
+router.delete('/:id', errorHandler(deleteFarm));
 
 export default router;

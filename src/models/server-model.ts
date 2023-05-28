@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import farmsRouter from '../routers/farms-router';
+import { defaultErrorReturn } from '../middlewares/default-error-return';
 
 export default class Server {
   app: Express;
@@ -19,6 +20,9 @@ export default class Server {
     //Routes exec
     this.routes();
 
+    //Default error handler
+    this.errorHandler();
+    
     //Listen exec
     this.listen();
   }
@@ -33,6 +37,11 @@ export default class Server {
   //Routes
   routes() {
     this.app.use(this.farmsPath, farmsRouter);
+  }
+
+  //Error Handler
+  errorHandler() {
+    this.app.use(defaultErrorReturn);
   }
 
   //Listen
