@@ -49,6 +49,7 @@ const getAllFarms = async (req: Request, res: Response) => {
 
   res.status(200).json({
     status: true,
+    totalFarms: farms.length,
     farms,
   });
 };
