@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import farmsRouter from '../routers/farms-router';
 import batchesRouter from '../routers/batches-router';
 import resourcesRouter from '../routers/resources-router';
+import resourcesEventRouter from '../routers/resources-events-router'
 import { defaultErrorReturn } from '../middlewares/default-error-return';
 
 export default class Server {
@@ -13,6 +14,7 @@ export default class Server {
   batchesPath: string;
   animalsPath: string;
   resourcesPath: string;
+  resourceEventPath: string;
 
   constructor() {
     this.app = express();
@@ -20,6 +22,7 @@ export default class Server {
     this.batchesPath = '/batches';
     this.animalsPath = '/animals';
     this.resourcesPath = '/resources';
+    this.resourceEventPath = '/resourceEvent';
 
     //Middlewares exec
     this.middlewares();
@@ -45,6 +48,7 @@ export default class Server {
     this.app.use(this.farmsPath, farmsRouter);
     this.app.use(this.batchesPath, batchesRouter);
     this.app.use(this.resourcesPath, resourcesRouter);
+    this.app.use(this.resourceEventPath, resourcesEventRouter);
   }
 
   //Error Handler
